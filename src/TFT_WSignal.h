@@ -38,7 +38,7 @@
  * - Pas besoin de `std::function` ou de `new`, tout est géré en pile.
  * - Permet de relier des composants indépendants sans couplage fort.
  *
- * @author Benjamin Grammatico
+ * @author Isaru83
  */
 
 #include "TFT_CoreApp.h"

@@ -2,10 +2,6 @@
 #include <TFT_eSPI.h>
 #include <TFT_Screen.h>
 #include <QMI8658.h>
-#include "LevelBubble.h"
-
-#define QMI_ADDRESS 0x6B                  // Define QMI8658C I2C address
-#define QMI8658C_I2C_FREQUENCY 80000  
 
 TFT_eSPI tft;
 TFT_CoreApp coreApp(&tft);
@@ -18,11 +14,6 @@ TFT_Text volText("15,265m",TFT_WHITE,(TFT_Rect){0,0,190,30});
 TFT_Scene *scene;
 
 QMI8658 imu;
-
-void callBackTest()
-{
-  Serial.println("Bouton Pressé!!");
-}
 
 StopWatch timer(100);
 

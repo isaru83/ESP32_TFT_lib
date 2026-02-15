@@ -17,7 +17,7 @@ TFT_Text::TFT_Text(const char *txt, uint16_t color, TFT_Rect rect)
 
     _sprite.createSprite(_rect.w, _rect.h);
     _sprite.setTextColor(_color);
-    _sprite.setTextDatum(TR_DATUM);
+    _sprite.setTextDatum(TL_DATUM);
     _sprite.setFreeFont(&FreeMonoBold18pt7b);
 
     _rect.x = rect.x;
@@ -32,8 +32,6 @@ TFT_Text::~TFT_Text()
 
 void TFT_Text::draw()
 {
-    int x = _rect.w - 1;
-    int y = 0;
     _sprite.fillSprite(TFT_BLACK);
     _sprite.drawString(_txt, _rect.w - 1,0);
 

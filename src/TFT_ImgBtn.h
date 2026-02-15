@@ -29,10 +29,8 @@ class TFT_ImgBtn : public TFT_AbstractBtn
             _imgPressed.setPos(x,y);
             _imgNormal.setPos(x,y);
         }
-
         void draw() override
         {
-            // On met à jour l'état AVANT d'afficher
             update();
             if (_pressed)
             {
@@ -46,6 +44,7 @@ class TFT_ImgBtn : public TFT_AbstractBtn
         void TXisPressed(void *msg){}
 
     protected:
+    
     void update()
     {
         bool currentlyTouched = haveEvent();  // vrai si doigt dans le bouton CE frame
@@ -55,14 +54,13 @@ class TFT_ImgBtn : public TFT_AbstractBtn
             // → Événement DOWN détecté (front montant)
             _pressed = true;
             if (_callback)
-                _callback();                  // ← CLIC UNIQUE ICI
+                _callback();                  
         }
         else if (!currentlyTouched && _wasTouchedLastFrame)
         {
             // → Événement UP détecté (front descendant)
             _pressed = false;
         }
-        // Sinon : doigt reste posé ou reste levé → rien
 
         _wasTouchedLastFrame = currentlyTouched;
     }
