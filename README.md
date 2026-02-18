@@ -1,3 +1,5 @@
+![](img/img1.PNG)
+
 # ESP32_TFT_lib
 
 **Bibliothèque C++ légère et orientée objet** pour créer des interfaces graphiques (GUI) sur écrans TFT avec ESP32 / ESP32-S3.
