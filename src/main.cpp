@@ -20,8 +20,8 @@ StopWatch timer(100);
 void setup() 
 {
   Serial.begin(115200);
-  delay(3000);  // attendre que le moniteur série démarre
-
+  delay(3000);  
+  
   if(!coreApp.init())
     Serial.println("CoreApp init failed!");
 

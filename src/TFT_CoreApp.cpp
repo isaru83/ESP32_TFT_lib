@@ -173,15 +173,8 @@ bool TFT_CoreApp::submitDrawBuffer()
     uint16_t *buf = _buffers[_currentDrawBuffer];
     _currentDrawBuffer = (_currentDrawBuffer + 1) % 2;
     memset(_buffers[_currentDrawBuffer], 0, _tft->width() * _tft->height() * sizeof(uint16_t));
-    return xQueueSend(_queue, &buf, portMAX_DELAY) == pdPASS;
 
-    // Envoie le buffer à la queue
-    if (xQueueSend(_queue, &buf, portMAX_DELAY) != pdPASS) 
-    {
-        // En cas d'échec, libérer le sémaphore
-        xSemaphoreGive(_bufferSemaphore);
-        return false;
-    }
+    return xQueueSend(_queue, &buf, portMAX_DELAY) == pdPASS;
 }
 
 void TFT_CoreApp::pushImg(uint16_t *data, TFT_Rect rect)
@@ -261,9 +254,9 @@ void TFT_CoreApp::pushImg(uint16_t *data,TFT_Rect srcrect,TFT_Rect dstrect)
             continue;
         if (dstrect.x >= screenWidth)
             continue;
-        // Nombre de pixels à copier dans cette ligne
+        
         uint16_t lineWidth = srcrect.w;
-        // Ajustement si dépassement écran
+        
         if (dstrect.x + lineWidth > screenWidth)
             lineWidth = screenWidth - dstrect.x;
         const uint16_t *srcPtr = &data[srcY * srcrect.w + srcrect.x];
@@ -328,8 +321,7 @@ void TFT_CoreApp::DisplayTask(void *param)
 
             xSemaphoreGive(app->_bufferSemaphore);
         }
-        // Petite pause pour éviter que la tâche ne monopolisent le CPU et déclenche le watchdog
-        vTaskDelay(1);
+        //vTaskDelay(1);
     }
 }
 
