@@ -1,4 +1,4 @@
-![](img/img1.PNG)
+![Capture](img/capture.jpg)
 
 # ESP32_TFT_lib
 
