@@ -17,6 +17,12 @@ TFT_Scene::TFT_Scene(TFT_Rect rect,uint16_t color): _bgImg(nullptr),_bgClr(color
     _rect = rect;
 } 
 
+TFT_Scene::~TFT_Scene()
+{
+    if(_bgImg!=nullptr)
+        delete _bgImg;
+}
+
 void TFT_Scene::draw()
 {
     if (_bgImg)

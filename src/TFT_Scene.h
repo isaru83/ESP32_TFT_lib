@@ -12,6 +12,7 @@ class TFT_Scene : public TFT_Container
     TFT_Scene(TFT_Rect rect);
     TFT_Scene(const char *imgPath);
     TFT_Scene(TFT_Rect rect, uint16_t color); 
+    ~TFT_Scene();
     void addChild(TFT_Scene *scene);
     void setParent(TFT_Scene *scene);
 
