@@ -33,43 +33,6 @@ bool TFT_Image::load(const char *path)
     if (_data == nullptr)
         return false;
     return true;
-     
-    /*
-    if (_data)
-    {
-        free(_data);
-        _data = nullptr;
-    }
-
-    SdFat *sd = TFT_CoreAppPtr->getSdPtr();
-    auto f = sd->open(path);
-    if (!f)
-        return false;
-
-    f.read((uint32_t*)&_rect.w, sizeof(uint32_t));
-    f.read((uint32_t*)&_rect.h, sizeof(uint32_t));
-
-    size_t size = _rect.w * _rect.h * sizeof(uint16_t);
-    _data = (uint16_t*)ps_malloc(size);
-    if (_data == NULL)
-    {
-        Serial.println("ps_malloc img echec...");
-        f.close();
-        return false;
-    }
-
-    if (f.read((uint8_t*)_data, size) != size)
-    {
-        Serial.println("fread img echec...");
-        f.close();
-        free(_data);
-        _data = nullptr;
-        return false;
-    }
-
-    f.close();
-    return true;
-    */
 }
 
 void TFT_Image::draw()
