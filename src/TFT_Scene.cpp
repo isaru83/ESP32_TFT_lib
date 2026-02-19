@@ -33,11 +33,12 @@ void TFT_Scene::draw()
     TFT_Container::draw();
 }
 
-    void TFT_Scene::addChild(TFT_Scene *scene)
-    {
-        _children.push_back(scene);
-    }
-    void TFT_Scene::setParent(TFT_Scene *scene)
-    {
-        _parent = scene;
-    }
+void TFT_Scene::addChild(TFT_Scene *scene)
+{
+    _children.push_back(scene);
+}
+
+void TFT_Scene::setParent(TFT_Scene *scene)
+{
+    _parent = scene;
+}

@@ -276,6 +276,11 @@ void TFT_CoreApp::drawImg(TFT_Image *img,TFT_Rect destRect)
     pushImg(img->_data,img->getRect(),destRect);
 }
 
+void TFT_CoreApp::drawImg(TFT_Image *img,TFT_Rect srcrect,TFT_Rect dstrect)
+{
+    pushImg(img->_data,srcrect,dstrect);
+}
+
 void TFT_CoreApp::handleTouch()
 {
     if (_touchTimer.getTrigg())

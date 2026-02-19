@@ -65,7 +65,8 @@ class TFT_CoreApp
         bool init();
 
         void drawImg(TFT_Image *img);      
-        void drawImg(TFT_Image *img,TFT_Rect destRect); 
+        void drawImg(TFT_Image *img,TFT_Rect destRect);
+        void drawImg(TFT_Image *img,TFT_Rect srcrect,TFT_Rect dstrect); 
         void drawRect(TFT_Rect rect, uint16_t color);
         void drawCircle(uint16_t x, uint16_t y, uint16_t radius,uint16_t color);
         
