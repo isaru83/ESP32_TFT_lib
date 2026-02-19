@@ -101,10 +101,10 @@ void TFT_CoreApp::drawRect(TFT_Rect rect, uint16_t color)
         if(rect.x + rect.w > _tft->width())
             wMax = (rect.x + rect.w) - _tft->width();
         else
-            wMax = rect.x + rect.h;
+            wMax = rect.x + rect.w;
 
         if(rect.y + rect.h > _tft->height())
-            hMax = (rect.y + rect.h) - _tft->width();
+            hMax = (rect.y + rect.w) - _tft->width();
         else
             hMax = rect.y + rect.h;
 
