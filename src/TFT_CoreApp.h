@@ -63,6 +63,7 @@ class TFT_CoreApp
         ~TFT_CoreApp();
 
         bool init();
+        TFT_Size getScreenSize();
 
         void drawImg(TFT_Image *img);      
         void drawImg(TFT_Image *img,TFT_Rect destRect);

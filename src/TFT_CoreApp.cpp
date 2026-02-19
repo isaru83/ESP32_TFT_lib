@@ -92,6 +92,14 @@ bool TFT_CoreApp::init()
     return true;
 }
 
+TFT_Size TFT_CoreApp::getScreenSize()
+{
+    TFT_Size ret;
+    ret.w = _tft->width();
+    ret.h = _tft->height();
+    return ret;
+}
+
 void TFT_CoreApp::drawRect(TFT_Rect rect, uint16_t color)
 {
     uint16_t *buf = getDrawBuffer();

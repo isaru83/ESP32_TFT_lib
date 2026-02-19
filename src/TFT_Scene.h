@@ -26,5 +26,6 @@ class TFT_Scene : public TFT_Container
         uint16_t _bgClr;
         TFT_Scene *_parent;
         vector<TFT_Scene*> _children;
+        TFT_Rect _screenRect;
 };
 #endif

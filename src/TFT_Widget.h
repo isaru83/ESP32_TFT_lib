@@ -7,6 +7,11 @@ typedef struct
   uint16_t x, y, w, h;
 }TFT_Rect;
 
+typedef struct 
+{
+  uint16_t w,h;
+}TFT_Size;
+
 class TFT_Widget
 {
     public:
