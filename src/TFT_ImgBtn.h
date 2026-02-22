@@ -47,18 +47,18 @@ class TFT_ImgBtn : public TFT_AbstractBtn
     
     void update()
     {
-        bool currentlyTouched = haveEvent();  // vrai si doigt dans le bouton CE frame
+        bool currentlyTouched = haveEvent();  
 
         if (currentlyTouched && !_wasTouchedLastFrame)
         {
-            // → Événement DOWN détecté (front montant)
+            //  Evénement DOWN détecté (front montant)
             _pressed = true;
             if (_callback)
                 _callback();                  
         }
         else if (!currentlyTouched && _wasTouchedLastFrame)
         {
-            // → Événement UP détecté (front descendant)
+            //  Evénement UP détecté (front descendant)
             _pressed = false;
         }
 

@@ -1,6 +1,19 @@
 #ifndef TFT_COREAPP_H_INCLUDED
 #define TFT_COREAPP_H_INCLUDED
 
+/*
+    Gesture ID
+  NONE         = 0x00,   // Aucun geste
+  SWIPE_UP     = 0x01,   // Glissé vers le haut
+  SWIPE_DOWN   = 0x02,   // Glissé vers le bas
+  SWIPE_LEFT   = 0x03,   // Glissé vers la gauche
+  SWIPE_RIGHT  = 0x04,   // Glissé vers la droite
+  SINGLE_CLICK = 0x05,   // Clic simple (appui court)
+  DOUBLE_CLICK = 0x0B,   // Double clic
+  LONG_PRESS   = 0x0C    // Appui long
+
+*/
+
 #include <Arduino.h>
 #include <TFT_eSPI.h>
 #include "TFT_Widget.h"

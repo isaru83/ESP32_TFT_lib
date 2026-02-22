@@ -28,6 +28,9 @@ bool TFT_Container::addWidget(TFT_Widget* widget, uint8_t row, uint8_t col)
 {
     ensureGridSize(row, col);
     _grid[row][col].widget = widget;
+    TFT_Size size = widget->getSize();
+    _rect.w += size.w;
+    _rect.h += size.h;
     return true;
 }
 
@@ -40,6 +43,10 @@ bool TFT_Container::addWidget(TFT_Widget* widget,uint8_t row,uint8_t col,uint16_
     _grid[row][col].marginRight = marginRight;
     _grid[row][col].marginTop = marginTop;
     _grid[row][col].marginBottom = marginBottom;
+
+    TFT_Size size = widget->getSize();
+    _rect.w += size.w;
+    _rect.h += size.h;
     return true;
 }
 

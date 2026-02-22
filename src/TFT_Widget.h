@@ -12,6 +12,11 @@ typedef struct
   uint16_t w,h;
 }TFT_Size;
 
+typedef struct
+{
+  uint16_t x, y;
+}TFT_Coord;
+
 class TFT_Widget
 {
     public:
@@ -19,6 +24,7 @@ class TFT_Widget
       virtual ~TFT_Widget() {};
       virtual void setPos(uint16_t x, uint16_t y) {_rect.x = x; _rect.y = y;}
       virtual void setSize(uint16_t w, uint16_t h) {_rect.w  = w; _rect.h = h;}
+      virtual TFT_Size getSize() { return (TFT_Size){_rect.x, _rect.h}; }
       virtual TFT_Rect getRect() { return _rect; }
       TFT_Rect *getRectPtr() { return &_rect;}
       virtual void setRect(TFT_Rect rect) { _rect = rect; }
