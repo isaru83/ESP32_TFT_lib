@@ -85,7 +85,7 @@ bool TFT_CoreApp::init()
         return false;
     _bufferSemaphore = xSemaphoreCreateBinary();
     if (!_bufferSemaphore) return false;
-    // Donne le sémaphore au début (buffer dispo)
+    
     xSemaphoreGive(_bufferSemaphore);
 
     xTaskCreatePinnedToCore(DisplayTask,"DisplayTask",8192,this,1,NULL,0);
@@ -167,24 +167,6 @@ void TFT_CoreApp::drawCircle(uint16_t x, uint16_t y, uint16_t radius,uint16_t co
 
 }
 
-uint16_t *TFT_CoreApp::getDrawBuffer()
-{
-    return _buffers[_currentDrawBuffer];
-}
-
-bool TFT_CoreApp::submitDrawBuffer()
-{
-    // Attendre que le buffer soit dispo
-    if (xSemaphoreTake(_bufferSemaphore, portMAX_DELAY) == pdFALSE)
-        return false;
-
-    uint16_t *buf = _buffers[_currentDrawBuffer];
-    _currentDrawBuffer = (_currentDrawBuffer + 1) % 2;
-    memset(_buffers[_currentDrawBuffer], 0, _tft->width() * _tft->height() * sizeof(uint16_t));
-
-    return xQueueSend(_queue, &buf, portMAX_DELAY) == pdPASS;
-}
-
 void TFT_CoreApp::pushImg(uint16_t *data, TFT_Rect rect)
 {
     uint16_t *buf = getDrawBuffer();
@@ -208,7 +190,6 @@ void TFT_CoreApp::pushImg(uint16_t *data, TFT_Rect rect)
         memcpy(dest, src, copyWidth * sizeof(uint16_t));
     }
 }
-
 
 void TFT_CoreApp::pushImg(uint16_t *data, TFT_Rect rect, uint16_t colorKey)
 {
@@ -237,7 +218,7 @@ void TFT_CoreApp::pushImg(uint16_t *data, TFT_Rect srcrect, TFT_Rect dstrect, ui
         {
             uint16_t dst_x = dstrect.x + i;
             uint16_t dst_y = dstrect.y + j;
-            // Hors de l'écran ?
+            
             if (dst_x >= _tft->width() || dst_y >= _tft->height())
                 continue;
                 
@@ -308,16 +289,29 @@ void TFT_CoreApp::handleTouch()
     }
 }
 
+uint16_t *TFT_CoreApp::getDrawBuffer()
+{
+    return _buffers[_currentDrawBuffer];
+}
+
 void TFT_CoreApp::exec()
 {
     submitDrawBuffer();
     handleTouch();
 }
 
-bool TFT_CoreApp::Collision(int x, int y, const TFT_Rect &rect)
+bool TFT_CoreApp::submitDrawBuffer()
 {
-    return (x >= rect.x) && (y >= rect.y) && (x < rect.x + rect.w) && (y < rect.y + rect.h);
+    if (xSemaphoreTake(_bufferSemaphore, portMAX_DELAY) == pdFALSE)
+        return false;
+
+    uint16_t *buf = _buffers[_currentDrawBuffer];
+    _currentDrawBuffer = (_currentDrawBuffer + 1) % 2;
+    memset(_buffers[_currentDrawBuffer], 0, _tft->width() * _tft->height() * sizeof(uint16_t));
+
+    return xQueueSend(_queue, &buf, portMAX_DELAY) == pdPASS;
 }
+
 
 void TFT_CoreApp::DisplayTask(void *param)
 {
@@ -334,7 +328,6 @@ void TFT_CoreApp::DisplayTask(void *param)
 
             xSemaphoreGive(app->_bufferSemaphore);
         }
-        //vTaskDelay(1);
     }
 }
 
@@ -342,6 +335,12 @@ uint16_t TFT_CoreApp::swapBytes(uint16_t val)
 {
     return (val >> 8) | (val << 8);
 }
+
+bool TFT_CoreApp::Collision(int x, int y, const TFT_Rect &rect)
+{
+    return (x >= rect.x) && (y >= rect.y) && (x < rect.x + rect.w) && (y < rect.y + rect.h);
+}
+
 
 void TFT_CoreApp::addLink(TFT_Widget* txObj, WsgnlFctnPtr txFptr, TFT_Widget* rxObj, WsgnlFctnPtr rxFptr) {
     SignalKey key = {txObj, txFptr};
